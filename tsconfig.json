@@ -1,0 +1,7 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "compilerOptions": {
+    "types": ["@types/gtag.js"],
+  },
+  "extends": "./.nuxt/tsconfig.json"
+}
