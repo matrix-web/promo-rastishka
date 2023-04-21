@@ -29,9 +29,9 @@
             У вас уже
             {{
               `зарегистрирован${pluralizeRussianWord(store.checkAcceptCount, [
-                '',
-                'о',
-                'о'
+                "",
+                "о",
+                "о",
               ])}`
             }}
             <span :data-text="store.checkAcceptCount">{{
@@ -39,9 +39,9 @@
             }}</span>
             {{
               `чек${pluralizeRussianWord(store.checkAcceptCount, [
-                '',
-                'а',
-                'ов'
+                "",
+                "а",
+                "ов",
               ])}`
             }}
           </p>
@@ -107,54 +107,56 @@
 </template>
 
 <script setup lang="ts">
-import PersonalData from '~/components/account/PersonalData.vue'
-import TableReceipt from '~/components/account/TableReceipt.vue'
-import { checkTableHeaders } from '~/data/loadedCheck'
-import { definePageMeta, onMounted } from '#imports'
-import { useVfm } from 'vue-final-modal'
-import { useMainStore } from '~/store'
-import { pluralizeRussianWord } from '~/utils'
+import PersonalData from "~/components/account/PersonalData.vue";
+import TableReceipt from "~/components/account/TableReceipt.vue";
+import { checkTableHeaders } from "~/data/loadedCheck";
+import { definePageMeta, onMounted } from "#imports";
+import { useVfm } from "vue-final-modal";
+import { useMainStore } from "~/store";
+import { pluralizeRussianWord } from "~/utils";
+import { useRouter } from "#app";
 
-const FILE_PATH = `https://storage.yandexcloud.net/rastishka/%D0%A0%D0%B0%D1%81%D1%82%D0%B8%D1%88%D0%BA%D0%B0.pdf`
+const FILE_PATH = `https://storage.yandexcloud.net/rastishka/%D0%A0%D0%B0%D1%81%D1%82%D0%B8%D1%88%D0%BA%D0%B0.pdf`;
 
 definePageMeta({
-  middleware: 'auth'
-})
+  middleware: "auth",
+});
 
-const { open } = useVfm()
-const store = useMainStore()
+const { open } = useVfm();
+const store = useMainStore();
+const router = useRouter();
 
 const handleCheckRegister = () => {
   if (store.isAuth) {
-    open('check')
+    open("check");
   } else {
-    open('alert')
+    open("alert");
   }
-  gtag('event', 'check_lk', { event_category: 'click_button' })
-}
+  gtag("event", "check_lk", { event_category: "click_button" });
+};
 
 const downLoadFile = () => {
-  gtag('event', 'paint', { event_category: 'click_button' })
+  gtag("event", "paint", { event_category: "click_button" });
 
-  const a = document.createElement('a')
-  a.href = FILE_PATH
-  a.target = '_blank'
-  a.download = `${'digital-coloring-book'}.pdf`
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
-}
+  const a = document.createElement("a");
+  a.href = FILE_PATH;
+  a.target = "_blank";
+  a.download = `${"digital-coloring-book"}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
 
 onMounted(async () => {
-  await store.getChecks()
-})
+  await store.getChecks();
+});
 </script>
 
 <style scoped lang="scss">
 .account {
   position: relative;
   padding: 35px 0 100px;
-  background-image: url('@/assets/images/backgrounds/account-bg.png');
+  background-image: url("@/assets/images/backgrounds/account-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
 

@@ -34,7 +34,10 @@ import { onMounted } from "#imports";
 import { useMainStore } from "~/store";
 import { setLocale } from "@vee-validate/i18n";
 import Cookies from "js-cookie";
+import { useRoute, useRouter } from "#app";
 
+const route = useRoute();
+const router = useRouter();
 const store = useMainStore();
 setLocale("ru");
 
@@ -46,7 +49,10 @@ const handleMenu = () => {
 
 onMounted(async () => {
   if (Cookies.get("token")) {
-    await store.getUserInfo().catch(() => Cookies.remove("token"));
+    await store.getUserInfo().catch(() => {
+      if (route.name === "account") router.push("/");
+      Cookies.remove("token");
+    });
   }
 });
 </script>
